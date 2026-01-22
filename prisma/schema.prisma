@@ -1,12 +1,6 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
-  provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  provider = "prisma-client-js"
+  // ลบรรทัด output ทิ้ง เพื่อให้มันไปสร้างใน node_modules ตามมาตรฐาน
 }
 
 datasource db {
@@ -14,14 +8,12 @@ datasource db {
 }
 
 model Report {
-  id          Int      @id @default(autoincrement())  // report_id (PK)
-  userId      Int?     // user_id (nullable, ถ้ามีระบบ user auth)
-  fullName    String   // ชื่อ-นามสกุล
-  title       String   // หัวข้อปัญหา
-  description String   // รายละเอียดปัญหา
-  status      String   @default("pending")  // สถานะ: pending, reviewed, resolved
-  createdAt   DateTime @default(now())  // วันที่-เวลาสร้างอัตโนมัติ
-  updatedAt   DateTime @updatedAt  // วันที่-เวลาอัปเดตอัตโนมัติ
-
-  @@map("reports")  // ชื่อตารางใน DB
+  id          Int      @id @default(autoincrement())
+  firstName   String
+  lastName    String
+  title       String
+  detail      String
+  status      String   @default("PENDING") // PENDING, RESOLVED
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
