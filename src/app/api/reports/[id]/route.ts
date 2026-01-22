@@ -1,14 +1,21 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { PrismaClient } from "@prisma/client";
 
-export async function PATCH(req: Request, { params }: { params: { id: string } }) {
+const prisma = new PrismaClient();
+
+// Admin อัปเดตสถานะ (เช่น กดปุ่ม Action เพื่อเปลี่ยนเป็น Resolved)
+export async function PATCH(
+  request: Request,
+  { params }: { params: { id: string } }
+) {
   const id = parseInt(params.id);
-  const body = await req.json();
+  const body = await request.json();
+  const { status } = body;
 
-  const updated = await prisma.report.update({
+  const updatedReport = await prisma.report.update({
     where: { id },
-    data: { status: body.status }
+    data: { status },
   });
 
-  return NextResponse.json(updated);
+  return NextResponse.json(updatedReport);
 }

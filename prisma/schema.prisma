@@ -1,6 +1,6 @@
 generator client {
   provider = "prisma-client-js"
-  // ลบรรทัด output ทิ้ง เพื่อให้มันไปสร้างใน node_modules ตามมาตรฐาน
+
 }
 
 datasource db {
